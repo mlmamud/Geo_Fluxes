@@ -5,7 +5,7 @@
 
 ## Summary
 
-**FLUX-GEO** is a computational modeling framework for subsurface CO₂ storage and carbon management, built around **PFLOTRAN-based multiphase flow and transport workflows**. The platform delivers reproducible simulation packages, operational scenarios with explicit constraints, and decision-ready outputs that directly support engineering decisions, project planning, and technical review.
+**FLUX-GEO** is a computational modeling framework for subsurface CO₂ storage and carbon management, built around **PFLOTRAN-based multiphase flow and transport workflows**, with additional support for complementary subsurface simulators accessed through Python-driven interfaces. The platform delivers reproducible simulation packages, operational scenarios with explicit constraints, and decision-ready outputs that directly support engineering decisions, project planning, and technical review.
 
 FLUX-GEO emphasizes **physical realism, traceability, and reproducibility**, enabling transparent evaluation of injectivity, pressure evolution, plume behavior, trapping mechanisms, and long-term storage performance across a range of subsurface energy and storage applications.
 
@@ -17,10 +17,13 @@ FLUX-GEO emphasizes **physical realism, traceability, and reproducibility**, ena
 
 FLUX-GEO supports modeling of CO₂ injection and long-term evolution using the physics required for storage decision-making.
 
-#### What I Can Do
+#### What We Can Do
 - Injection scenarios with pressure buildup and plume migration  
 - Buoyancy-driven flow and containment behavior  
 - Salinity and thermal variants where they materially affect results  
+
+**Primary engines:** PFLOTRAN, FEHM  
+**Supporting engines:** MODFLOW-family (density-coupled extensions), VS2DI / VS2DTI (variably saturated flow)
 
 ---
 
@@ -28,43 +31,65 @@ FLUX-GEO supports modeling of CO₂ injection and long-term evolution using the 
 
 FLUX-GEO represents coupled wells and operational controls under realistic constraints.
 
-#### What I Can Do
+#### What We Can Do
 - Well injection and production scheduling, including WAG and brine extraction strategies  
 - Constraint evaluation (fracture pressure limits, minimum pressure thresholds, bottom-hole pressure limits)  
 - Well performance summaries and field-level key performance indicators (KPIs)  
+
+**Primary engines:** PFLOTRAN, FEHM  
+**Supporting engines:** MODFLOW-family well packages and Python-based operational logic
 
 ---
 
 ### Reactive Transport and Mineralization
 
-When permanence claims and geochemistry matter, FLUX-GEO can incorporate reactive transport to quantify mineralization potential and time scales.
+When permanence claims and geochemistry matter, FLUX-GEO incorporates reactive transport to quantify mineralization potential and time scales.
 
-#### What I Can Do
+#### What We Can Do
 - Coupled flow, transport, and geochemistry for CO₂ partitioning  
 - Tracking of CO₂ into mobile/free-phase, dissolved, and mineralized fractions  
 - Mass-balance-based KPIs with clearly stated assumptions and limits  
+
+**Primary engines:** PFLOTRAN  
+**Supporting workflows:** Python-driven geochemical postprocessing and reaction bookkeeping
+
+---
+
+### Variably Saturated Flow and Near-Field Processes
+
+FLUX-GEO supports variably saturated and near-field flow and transport modeling where capillary effects and unsaturated conditions are important.
+
+#### What We Can Do
+- Variably saturated flow and transport simulations  
+- Infiltration, leakage, and near-surface process representation  
+- Consistent postprocessing and comparison with saturated-flow models  
+
+**Primary engines:** VS2DI, VS2DTI (VS2DRTI)  
+**Integration layer:** Python-based preprocessing and postprocessing
 
 ---
 
 ### Post-Processing, KPIs, and Reporting
 
-FLUX-GEO converts raw model outputs into decision-ready plots and tables with consistent formatting.
+FLUX-GEO converts raw model outputs into decision-ready plots and tables with consistent formatting across simulators.
 
-#### What I Can Do
+#### What We Can Do
 - Automated plots for pressure evolution, plume footprint proxies, and well behavior  
 - CO₂ mass partitioning summaries through time  
+- Cross-solver KPI comparison (pressure, plume extent, trapping metrics)  
 - Clear, reviewable documentation and run logs suitable for technical review  
 
 ---
 
 ### Reproducibility and QA/QC
 
-FLUX-GEO deliverables are designed to be rerun, audited, and extended.
+FLUX-GEO deliverables are designed to be rerun, audited, and extended across modeling engines.
 
-#### What I Can Do
+#### What We Can Do
 - Reproducible run packages (inputs, execution instructions, and standard plots)  
-- QA/QC checks including mass balance, timestep stability, and sanity checks  
+- QA/QC checks including mass balance, timestep stability, and solver diagnostics  
 - Versioning and change tracking for iterative projects  
+- Explicit documentation of solver-specific assumptions and limitations  
 
 ---
 
@@ -133,13 +158,8 @@ Deliverables scale with data availability and project goals, from rapid feasibil
 Final budgets depend on scope, data quality, and required uncertainty analysis. Typical research or industry-funded ranges are:
 
 - **Small / pilot (screening):** USD **$25k–$75k**  
-  - Rapid feasibility assessment with injectivity, pressure, plume behavior, and short report  
-
 - **Medium (site concept model):** USD **$75k–$250k**  
-  - Client-specific model build, multiple scenarios, documented workflows, and decision plots  
-
 - **Large (site + optimization + mineralization + uncertainty):** USD **$250k–$750k+**  
-  - Multi-scenario operational evaluation, reactive transport and permanence analysis, uncertainty quantification, and MRV-ready packaging  
 
 Grant-style budgeting can also be provided as work packages (WP1–WP4) with milestones and not-to-exceed caps.
 
@@ -167,7 +187,7 @@ Grant-style budgeting can also be provided as work packages (WP1–WP4) with mil
 
 ## Why This Is Valuable
 
-FLUX-GEO converts site data and operational goals into testable scenarios with traceable assumptions, quantitative KPIs, and repeatable simulation packages. This reduces uncertainty, supports smarter operational decisions, and enables clear communication with technical stakeholders, sponsors, and reviewers.
+FLUX-GEO converts site data and operational goals into testable scenarios with traceable assumptions, quantitative KPIs, and repeatable simulation packages. By supporting multiple subsurface simulators within a consistent workflow, we reduce uncertainty, improve cross-model understanding, and enable clear communication with technical stakeholders, sponsors, and reviewers.
 
 ---
 
@@ -179,4 +199,4 @@ FLUX-GEO converts site data and operational goals into testable scenarios with t
 
 ## Citation
 
-If you use **FLUX-GEO** in research, proposals, or technical studies, please cite appropriately. Citation details will be provided in a future release.
+If you use **FLUX-GEO** in research, proposals, or technical studies, please cite appropriately. Citation details for FLUX-GEO will be provided in a future release. Users are responsible for citing underlying numerical engines (e.g., PFLOTRAN, FEHM, MODFLOW, VS2DI/VS2DTI) according to their respective guidelines.

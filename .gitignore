@@ -1,0 +1,21 @@
+# PFLOTRAN / simulation binaries
+*.h5
+*.hdf5
+*.nc
+*.vtk
+*.exo
+
+# Simulation outputs
+results/
+output/
+logs/
+
+# Restart / temp files
+*.rst
+*.chk
+*.out
+
+# Python
+__pycache__/
+*.pyc
+.env

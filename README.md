@@ -5,187 +5,270 @@
 
 ## Executive Summary
 
-**FLUX-GEO** is a computational modeling framework for subsurface flow and transport across energy, environmental, and storage applications. It integrates multiple, well-established subsurface simulators—including **PFLOTRAN**, **FEHM**, **MODFLOW**, **VS2DI**, and **VS2DTI**—within a unified, Python-driven workflow. The framework enables consistent model setup, execution, postprocessing, and reporting across solvers while preserving the unique physical strengths and numerical formulations of each code.
+**FLUX-GEO** is a comprehensive, Python-driven computational framework for subsurface flow, transport, and coupled process modeling across energy, environmental, and storage applications. The platform integrates multiple, well-established numerical simulators—including **:contentReference[oaicite:0]{index=0}**, **:contentReference[oaicite:1]{index=1}**, **:contentReference[oaicite:2]{index=2}**, **:contentReference[oaicite:3]{index=3}**, and **:contentReference[oaicite:4]{index=4}**—within a unified, transparent, and reproducible workflow.
 
-FLUX-GEO delivers **reproducible and traceable simulation packages**, operational scenarios with explicit physical and engineering constraints, and **decision-ready outputs** that support subsurface system design, performance assessment, monitoring strategy development, and technical review. By emphasizing physical realism, transparent assumptions, and rigorous QA/QC, FLUX-GEO enables robust evaluation of **pressure evolution, multiphase flow, plume migration, transport processes, trapping mechanisms, reactive behavior, and long-term system performance**.
+FLUX-GEO is designed to support the **full modeling lifecycle**, from conceptual model development and scenario design to simulation execution, postprocessing, parameter estimation, uncertainty analysis, and decision-ready reporting. By combining solver-appropriate physics with a consistent Python orchestration layer, the framework preserves the numerical strengths of each engine while eliminating fragmentation in setup, analysis, QA/QC, and documentation.
 
-FLUX-GEO is intentionally designed as a **general-purpose subsurface modeling framework**. It supports a broad range of applications, including **geologic CO₂ storage and carbon management**, **groundwater flow and contaminant transport**, **geothermal and coupled thermal–hydrologic systems**, **hydrogen and other gas storage**, **energy and waste isolation**, and **near-field and variably saturated processes**. This breadth allows FLUX-GEO to be applied consistently across diverse subsurface problems while maintaining solver-appropriate physics and defensible, transparent assumptions.
-
-
----
-
-## Supported Numerical Engines
-
-FLUX-GEO is designed to work across multiple subsurface flow and transport simulators, each applied where its physics and numerical strengths are most appropriate.
-
-- **PFLOTRAN**  
-  Multiphase CO₂–brine flow, reactive transport, geochemical coupling, and large-scale reservoir simulations.
-
-- **FEHM**  
-  Multiphase flow, heat transport, and coupled thermal–hydrologic processes, particularly for systems with strong thermal or energy coupling.
-
-- **MODFLOW (and MODFLOW-family tools)**  
-  Saturated groundwater flow and pressure evolution, including density-coupled and transport extensions when appropriate.
-
-- **VS2DI / VS2DTI**  
-  Variably saturated flow and transport, near-field processes, leakage pathways, and infiltration-dominated systems.
-
-Python serves as the integration layer, providing a consistent interface for scenario definition, execution control, output parsing, QA/QC, and reporting across all solvers.
+The platform delivers **traceable simulation packages**, operational scenarios with explicit physical and engineering constraints, and **decision-ready outputs** suitable for technical review, regulatory-style documentation, and stakeholder communication. Emphasis is placed on physical realism, transparent assumptions, reproducibility, and defensible uncertainty framing, enabling robust evaluation of **groundwater flow**, **multiphase and gas–liquid systems**, **reactive transport**, **near-field and variably saturated processes**, **microfluidic and pore-scale behavior**, and **long-term system performance** across a wide range of subsurface applications.
 
 ---
 
 ## Capabilities
 
-FLUX-GEO provides a unified, Python-driven framework for subsurface flow, transport, and coupled process modeling. Each capability leverages the most appropriate numerical engines while maintaining a consistent workflow for scenario definition, execution, postprocessing, QA/QC, and reporting.
+FLUX-GEO provides an integrated, multi-scale modeling capability spanning laboratory, field, and regional domains. Each capability leverages the most appropriate numerical engines while maintaining a consistent workflow for scenario definition, execution control, postprocessing, parameter estimation, QA/QC, and reporting.
 
 ---
 
-### Multiphase CO₂ Flow (CO₂–Water / sCO₂)
+### Groundwater Flow and Solute Transport
 
-FLUX-GEO supports modeling of CO₂ injection and long-term multiphase evolution using solver-appropriate physics across reservoir-scale, near-field, and transition-zone regimes.
+FLUX-GEO supports saturated groundwater flow and solute transport modeling for environmental, energy, and infrastructure applications.
 
 #### What We Can Do
-- Injection scenarios with pressure buildup and plume migration  
-- Buoyancy-driven flow, containment behavior, and structural trapping  
-- Salinity- and temperature-dependent variants where they materially affect results  
-- Transition between saturated and variably saturated conditions near wells and boundaries  
+- Regional- and site-scale groundwater flow modeling  
+- Hydraulic head and pressure evolution under natural and engineered stresses  
+- Conservative and reactive solute transport  
+- Recharge, boundary-condition, and property sensitivity analysis  
 
 **Primary engines:**  
-- **PFLOTRAN** — multiphase CO₂–brine flow, compositional effects, large-scale storage systems  
-- **FEHM** — multiphase and thermal–hydrologic flow, including strong temperature coupling  
+- **MODFLOW and MODFLOW-family tools**
 
 **Supporting engines:**  
-- **MODFLOW-family models** — pressure evolution and flow behavior using density-aware or variable-density formulations  
-- **VS2DI / VS2DTI** — variably saturated and near-field flow where capillary effects and partial saturation are important  
+- **PFLOTRAN** (density-dependent flow and coupled transport)  
+- **FEHM** (flow with thermal coupling)
 
 ---
 
-### Wells and Operations
+### Multiphase Flow (CO₂, H₂, Gas–Water Systems)
+
+FLUX-GEO supports multiphase flow and gas–liquid interaction modeling across reservoir-scale, near-field, and transition-zone regimes.
+
+#### What We Can Do
+- Gas injection scenarios with pressure buildup and plume migration  
+- Buoyancy-driven flow, containment, and trapping behavior  
+- Salinity- and temperature-dependent effects  
+- Coupled saturated–unsaturated transitions near wells and boundaries  
+
+**Primary engines:**  
+- **PFLOTRAN** — multiphase gas–water flow and compositional effects  
+- **FEHM** — multiphase and thermal–hydrologic systems  
+
+**Supporting engines:**  
+- **MODFLOW-family (density-aware formulations)**  
+- **VS2DI / VS2DTI** for near-field and partially saturated zones  
+
+---
+
+### Wells, Operations, and Engineering Constraints
 
 FLUX-GEO represents coupled wells and operational controls under realistic engineering and regulatory constraints.
 
 #### What We Can Do
-- Well injection and production scheduling, including WAG and brine extraction strategies  
-- Constraint evaluation (fracture pressure limits, minimum pressure thresholds, bottom-hole pressure limits)  
-- Well interference analysis and field-level performance metrics  
-- Operational scenario comparison under changing rates, pressures, and schedules  
+- Injection and production scheduling (CO₂, H₂, brine, water)  
+- Pressure, rate, and fracture-gradient constraint enforcement  
+- Well interference analysis and operational trade studies  
+- Field-level performance metrics and diagnostics  
 
 **Primary engines:**  
-- **PFLOTRAN** — fully coupled well–reservoir interactions in multiphase systems  
-- **FEHM** — coupled well, flow, and thermal effects  
+- **PFLOTRAN, FEHM**
 
 **Supporting engines:**  
-- **MODFLOW-family well packages** — groundwater-focused well representation  
-- **Python-based operational logic** — scheduling, constraint enforcement, and scenario orchestration  
+- **MODFLOW well packages**  
+- **Python-based operational logic** for scheduling and constraint handling  
 
 ---
 
-### Reactive Transport and Mineralization
+### Reactive Transport and Geochemical Processes
 
-When geochemistry and long-term permanence are relevant, FLUX-GEO incorporates reactive transport and geochemical bookkeeping.
+FLUX-GEO incorporates reactive transport where geochemistry governs system evolution and long-term behavior.
 
 #### What We Can Do
-- Coupled flow, transport, and geochemistry for gas–aqueous–mineral interactions  
-- Tracking of CO₂ into mobile/free-phase, dissolved, and mineralized fractions  
+- Coupled flow, transport, and geochemical reaction modeling  
+- Mineral dissolution/precipitation and gas partitioning  
 - Time-dependent mass balance and reaction-path analysis  
-- Permanence and storage metrics with explicitly stated assumptions and limitations  
+- Permanence, storage, and transformation metrics with explicit assumptions  
 
 **Primary engines:**  
-- **PFLOTRAN** — reactive transport and mineralization kinetics  
+- **PFLOTRAN**
 
 **Supporting workflows:**  
-- **Python-driven reaction tracking and postprocessing** — standardized geochemical summaries and KPIs  
+- Python-based reaction bookkeeping, diagnostics, and reporting  
 
 ---
 
 ### Variably Saturated Flow and Near-Field Processes
 
-FLUX-GEO supports near-field, vadose-zone, and leakage-relevant modeling where partial saturation and capillary effects dominate behavior.
+FLUX-GEO supports vadose-zone and near-surface modeling where capillary effects and partial saturation dominate.
 
 #### What We Can Do
 - Variably saturated flow and transport simulations  
-- Infiltration, leakage, and near-surface process representation  
-- Coupling of near-field models with deeper saturated or multiphase systems  
-- Consistent comparison with reservoir-scale results  
+- Infiltration, leakage, and near-field process representation  
+- Coupling of vadose-zone and deeper saturated or multiphase systems  
 
 **Primary engines:**  
-- **VS2DI, VS2DTI (VS2DRTI)** — variably saturated flow and transport  
+- **VS2DI, VS2DTI (VS2DRTI)**
+
+---
+
+### Microfluidic and Pore-Scale Simulations
+
+FLUX-GEO supports microfluidic, pore-scale, and laboratory-scale simulations for process understanding, benchmarking, and scale-bridging.
+
+#### What We Can Do
+- Flow and transport in microfluidic and lab-on-chip geometries  
+- Geometry-controlled experiments and synthetic pore networks  
+- Upscaling insights to inform continuum-scale models  
+
+**Primary engines:**  
+- **PFLOTRAN** (micro-domain configurations)  
+- **FEHM** (small-scale domains)
+
+**Supporting workflows:**  
+- Python-based geometry generation, meshing, and analysis  
+
+---
+
+### Parameter Estimation, Inverse Modeling, and Uncertainty Analysis
+
+FLUX-GEO provides parameter estimation and inverse modeling capabilities across all supported simulators.
+
+#### What We Can Do
+- Calibration of hydraulic, transport, thermal, and reactive parameters  
+- Gradient-free, ensemble-based, and sampling-driven inverse workflows  
+- Sensitivity analysis, identifiability assessment, and uncertainty propagation  
+- Cross-solver parameter comparison and risk framing  
+
+**Supported engines:**  
+- **PFLOTRAN, FEHM, MODFLOW, VS2DI, VS2DTI**
 
 **Integration layer:**  
-- **Python-based preprocessing and postprocessing** — consistent inputs, outputs, and diagnostics  
+- Python-based optimization, sampling, and diagnostic tools  
 
 ---
 
 ### Post-Processing, KPIs, and Reporting
 
-FLUX-GEO converts raw simulator outputs into consistent, decision-ready products across all supported solvers.
+FLUX-GEO converts raw simulator outputs into consistent, decision-ready products.
 
 #### What We Can Do
-- Automated plots for pressure evolution, plume footprint proxies, and well behavior  
-- Mass balance and storage partitioning summaries through time  
-- Cross-solver KPI comparison (pressure, plume extent, trapping, and storage metrics)  
-- Reproducible figures, tables, and run logs suitable for technical and regulatory review  
+- Automated plots for pressure, flow, plume extent, and transport metrics  
+- Mass balance, storage partitioning, and diagnostic KPIs  
+- Cross-solver comparison and standardized reporting  
+- Outputs suitable for technical, regulatory, and stakeholder review  
 
 ---
 
-### Reproducibility and QA/QC
+### Reproducibility, QA/QC, and Audit Readiness
 
-FLUX-GEO deliverables are designed to be rerun, audited, and extended across modeling engines and applications.
+FLUX-GEO is designed to produce defensible, auditable results.
 
 #### What We Can Do
-- Reproducible run packages (inputs, execution instructions, standardized outputs)  
-- QA/QC checks including mass balance, timestep stability, and solver diagnostics  
-- Versioning and change tracking for iterative model development  
-- Explicit documentation of solver-specific assumptions and limitations  
+- Fully reproducible run packages with complete provenance  
+- Solver-agnostic QA/QC (mass balance, stability, convergence checks)  
+- Versioning, change tracking, and assumptions registers  
+- Transparent linkage from inputs to final deliverables  
+
+---
+
+## Why This Matters for Clients
+
+FLUX-GEO reduces technical risk by transforming complex subsurface problems into **transparent, testable, and repeatable modeling workflows**. By supporting **groundwater flow, multiphase systems, reactive transport, parameter estimation, and pore-scale processes within a single coherent platform**, FLUX-GEO enables faster insight, clearer uncertainty communication, and stronger technical justification for decisions related to energy systems, environmental management, and subsurface storage.
+
+
 
 ---
 
 ## Deliverables
 
-Deliverables scale with data availability and project goals, from rapid feasibility screening to site-scale and long-term performance analyses.
+FLUX-GEO deliverables are structured to scale with data availability, project maturity, and decision needs. Each deliverable set produces **fully traceable, reproducible modeling artifacts** designed to support technical review, risk assessment, and stakeholder communication.
+
+All deliverables include documented assumptions, solver configurations, QA/QC checks, and version-controlled outputs to ensure defensibility and reproducibility.
 
 ---
 
-### Deliverable Set A — Rapid Screening (2–4 Weeks)
+### Deliverable Set A — Rapid Screening and Feasibility Assessment (2–4 Weeks)
+
+**Objective:** Provide a defensible first-pass evaluation to inform go/no-go decisions and prioritize data collection.
 
 #### Deliverables
-- Screening models sized to available information (injectivity, pressure buildup, first-order plume behavior)  
-- Sensitivity results for dominant parameters (e.g., permeability, relative permeability, salinity/temperature assumptions)  
-- Concise PDF report summarizing assumptions, results, and recommended next steps  
+- Screening-scale models sized to available information, capturing:
+  - Injectivity and pressure response  
+  - First-order plume or influence-zone behavior  
+  - Dominant flow and transport controls  
+- Targeted sensitivity analysis identifying parameters that most strongly influence outcomes (e.g., permeability, relative permeability, salinity, temperature)  
+- Clear articulation of assumptions, limitations, and data gaps  
+- Concise, decision-focused PDF report summarizing:
+  - Modeling approach  
+  - Key results and sensitivities  
+  - Recommended next steps and risk-reduction priorities  
 
 ---
 
-### Deliverable Set B — Site Concept Model (6–12 Weeks)
+### Deliverable Set B — Site Concept Model and Operational Scenarios (6–12 Weeks)
+
+**Objective:** Develop a technically consistent site-scale model suitable for engineering evaluation and scenario comparison.
 
 #### Deliverables
-- Site-scale model setup (initialization, boundary conditions, stratigraphy, heterogeneity representation)  
-- One or more well configurations and schedules with constraint checks  
-- Decision outputs including pressure envelopes, plume evolution, and trapping diagnostics  
-- Reproducible model package with run instructions and standardized plots  
+- Site-scale conceptual and numerical model including:
+  - Domain definition, stratigraphy, and heterogeneity representation  
+  - Initial and boundary conditions consistent with site data  
+- One or more well configurations and operational schedules with explicit constraint checks (pressure, rate, fracture limits)  
+- Scenario comparisons evaluating alternative operational strategies  
+- Decision-ready outputs including:
+  - Pressure envelopes and spatial diagnostics  
+  - Plume evolution and containment indicators  
+  - Flow and transport metrics relevant to operations  
+- Fully reproducible model package with:
+  - Input files and run instructions  
+  - Standardized plots and tables  
+  - QA/QC summaries and run logs  
 
 ---
 
-### Deliverable Set C — Mineralization and Permanence Analysis (6–12 Weeks)
+### Deliverable Set C — Reactive Transport, Mineralization, and Long-Term Performance (6–12 Weeks)
+
+**Objective:** Quantify geochemical processes and long-term system behavior where permanence and transformation are critical.
 
 #### Deliverables
-- Chemistry configuration (species, minerals, reaction rates, database selection)  
-- Gas and solute partitioning versus time (mobile, dissolved, mineralized)  
-- Permanence KPIs suitable for technical narratives, with explicit assumptions and limitations  
+- Chemistry configuration including:
+  - Relevant aqueous species, minerals, and reaction pathways  
+  - Reaction rate formulations and database selection  
+- Coupled flow–transport–reaction simulations  
+- Time-resolved partitioning of gas and solutes among:
+  - Mobile/free-phase  
+  - Dissolved  
+  - Mineralized or immobilized fractions  
+- Permanence and transformation KPIs suitable for:
+  - Technical narratives  
+  - Risk and uncertainty discussions  
+- Explicit documentation of geochemical assumptions, uncertainties, and modeling limits  
 
 ---
 
-### Deliverable Set D — MRV-Ready Model Package (Ongoing)
+### Deliverable Set D — MRV-Ready, Audit-Grade Modeling Package (Ongoing)
+
+**Objective:** Provide a defensible, updateable modeling framework suitable for monitoring, reporting, and verification (MRV) contexts.
 
 #### Deliverables
-- Standard QA/QC checklist and run log for each update  
-- Versioned scenario library with consistent reporting format  
-- Monitoring implications highlighting measurements that most constrain plume and pressure behavior  
+- Standardized QA/QC checklist applied to each model update  
+- Versioned scenario library enabling consistent comparison over time  
+- Traceable run logs linking inputs, solver settings, and outputs  
+- Monitoring and data-value assessment identifying:
+  - Measurements that most constrain pressure, plume, and transport behavior  
+  - Data priorities for reducing uncertainty  
+- Consistent reporting format suitable for internal governance, external review, or regulatory-style documentation  
 
 ---
 
 ## Why This Is Valuable
 
-FLUX-GEO converts site data and operational goals into testable scenarios with traceable assumptions, quantitative KPIs, and repeatable simulation packages. By supporting **PFLOTRAN, FEHM, MODFLOW, VS2DI, and VS2DTI within a single, coherent workflow**, FLUX-GEO reduces uncertainty, improves cross-model consistency, and enables clear communication with technical stakeholders, sponsors, and reviewers.
+FLUX-GEO transforms complex subsurface problems into **transparent, testable, and repeatable modeling workflows**. By integrating **PFLOTRAN, FEHM, MODFLOW, VS2DI, and VS2DTI** within a single, coherent framework, FLUX-GEO:
+
+- Reduces technical and decision risk  
+- Improves consistency across modeling approaches and scales  
+- Enables rigorous sensitivity, calibration, and uncertainty analysis  
+- Produces audit-ready artifacts that withstand technical scrutiny  
+
+The result is **faster insight, clearer uncertainty communication, and stronger technical justification** for decisions related to subsurface energy systems, environmental management, and storage applications.
 
 ---
 
@@ -197,4 +280,6 @@ FLUX-GEO converts site data and operational goals into testable scenarios with t
 
 ## Citation
 
-If you use **FLUX-GEO** in research, proposals, or technical studies, please cite appropriately. Citation details for FLUX-GEO will be provided in a future release. Users are responsible for citing underlying numerical engines (**PFLOTRAN, FEHM, MODFLOW, VS2DI, VS2DTI**) according to their respective guidelines.
+If you use **FLUX-GEO** in research, proposals, or technical studies, please cite appropriately. Citation details for FLUX-GEO will be provided in a future release.
+
+Users are responsible for citing the underlying numerical engines (**PFLOTRAN, FEHM, MODFLOW, VS2DI, VS2DTI**) according to their respective citation guidelines and licensing requirements.

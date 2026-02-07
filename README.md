@@ -275,7 +275,11 @@ The result is **faster insight, clearer uncertainty communication, and stronger 
 
 ## License
 
-*License to be defined.*
+© 2026 Md Lal Mamud. All rights reserved.
+
+FLUX-GEO is proprietary research software. Use, reproduction, modification, or
+distribution of this software requires explicit prior written permission from
+the author. See the LICENSE file for full terms.
 
 ---
 
